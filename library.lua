@@ -1509,14 +1509,15 @@ do
                 new.instances = instances
                 return new
             end
-            window.minimize = function(self) 
+            window.minimize = function(self)
+                warn('minimize called') 
                 local newState = not self.minimized
                 local mf = self.instances.mainFrame
                 local bmin = mf['#title-bar']['#button-min']
                 local bminIcon = bmin['#icon']
                 
-                
                 if (newState) then
+                    warn('minimizing')
                     tween(mf, {Size = UDim2.fromOffset(self.size.X.Offset, 26)}, 0.3, 1)
                     bminIcon.Image = 'rbxassetid://9642646619'
                     
@@ -1532,7 +1533,9 @@ do
                     
                     mf['#page-region'].Visible = false
                     mf['#sidebar'].Visible = false
+                    warn('minimized')
                 else
+                    warn('opening')
                     tween(mf, {Size = self.size}, 0.3, 1)
                     bminIcon.Image = 'rbxassetid://9642680675'
                     tween(bminIcon, {
@@ -1548,6 +1551,7 @@ do
                     
                     mf['#page-region'].Visible = true
                     mf['#sidebar'].Visible = true
+                    warn('opened')
                 end
                 self.minimized = newState
             end            
